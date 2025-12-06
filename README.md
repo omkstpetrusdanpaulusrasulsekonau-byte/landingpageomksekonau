@@ -1,1 +1,0 @@
-# landingpageomksekonau

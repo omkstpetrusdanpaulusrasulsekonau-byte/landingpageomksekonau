@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <title>Login Aman</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      padding: 30px;
+      background: #f4f6fa;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #data-table {
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
+
+    #data-table th,
+    #data-table td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+    }
+
+    #data-table th {
+      background: #e6e9f0;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: inline-block;
+    }
+
+    .logout {
+      background: #e33;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Akses Data Anggota</h1>
+    <div id="login-area"></div>
+    <div id="status"></div>
+    <div id="data"></div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      // Inisialisasi tombol Google Sign-In
+      google.accounts.id.initialize({
+        client_id: '615652430263-10prqjssma6rat184elsplohmftcg8f5.apps.googleusercontent.com',
+        callback: handleCredentialResponse
+      });
+
+      google.accounts.id.renderButton(
+        document.getElementById("login-area"),
+        { theme: "outline", size: "large" }
+      );
+    };
+
+    // Callback setelah login Google berhasil
+    function handleCredentialResponse(response) {
+      document.getElementById('status').textContent = 'Memeriksa akun...';
+      google.script.run
+        .withSuccessHandler(showData)
+        .withFailureHandler(showError)
+        .getUserData();
+    }
+
+    // Tampilkan data anggota setelah login berhasil
+    function showData(result) {
+      document.getElementById('status').innerHTML =
+        'Login sebagai <b>' + result.email + '</b>';
+
+      const data = result.data;
+      let html = '<table id="data-table"><thead><tr>';
+
+      for (let h of data[0]) {
+        html += '<th>' + h + '</th>';
+      }
+
+      html += '</tr></thead><tbody>';
+
+      for (let r = 1; r < data.length; r++) {
+        html += '<tr>';
+        for (let c of data[r]) {
+          html += '<td>' + c + '</td>';
+        }
+        html += '</tr>';
+      }
+
+      html += '</tbody></table>';
+      document.getElementById('data').innerHTML = html;
+    }
+
+    // Tampilkan error jika gagal mengambil data
+    function showError(err) {
+      document.getElementById('status').textContent = 'Error: ' + err.message;
+    }
+  </script>
+</body>
+</html>
+
