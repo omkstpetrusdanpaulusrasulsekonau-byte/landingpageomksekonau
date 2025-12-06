@@ -1,117 +1,171 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <base target="_top">
-  <meta charset="utf-8">
-  <title>Login Aman</title>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      padding: 30px;
-      background: #f4f6fa;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landing Page OMK Sekonau</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
 
-    h1 {
-      color: #333;
-    }
+body, html {
+  height:100%;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background-image: url('https://i.postimg.cc/k47B60Fc/9568162-cb3cc.gif');
+}
 
-    #data-table {
-      border-collapse: collapse;
-      margin: 20px auto;
-    }
+/* Kontainer utama dengan hover bercahaya */
+.landing-container {
+  display:flex;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  overflow:hidden;
+  max-width:900px;
+  width:90%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: all 0.4s ease;
+}
 
-    #data-table th,
-    #data-table td {
-      border: 1px solid #ccc;
-      padding: 8px 12px;
-    }
+.landing-container:hover {
+  box-shadow: 0 0 40px 10px rgba(79,172,254,0.7);
+  transform: translateY(-5px);
+}
 
-    #data-table th {
-      background: #e6e9f0;
-    }
+/* Kolom kiri */
+.left-column {
+  flex:1;
+  padding:40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  color:#f7041c;
+}
 
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      display: inline-block;
-    }
+/* Judul animasi tenggelam-timbul */
+.animated-title {
+  font-size:2rem;
+  margin-bottom:20px;
+  display:flex;
+  flex-wrap:wrap;
+  line-height:1.2;
+}
 
-    .logout {
-      background: #e33;
-      color: #fff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-  </style>
+.animated-title span {
+  display:inline-block;
+  opacity:0;
+  transform: translateY(10px);
+  animation: fadeInUp 1s forwards;
+}
+
+@keyframes fadeInUp {
+  0% { opacity:0; transform: translateY(10px); }
+  50% { opacity:1; transform: translateY(-5px); }
+  100% { opacity:1; transform: translateY(0); }
+}
+
+/* Delay huruf satu per satu */
+.animated-title span:nth-child(1){animation-delay:0s;}
+.animated-title span:nth-child(2){animation-delay:0.1s;}
+.animated-title span:nth-child(3){animation-delay:0.2s;}
+.animated-title span:nth-child(4){animation-delay:0.3s;}
+.animated-title span:nth-child(5){animation-delay:0.4s;}
+.animated-title span:nth-child(6){animation-delay:0.5s;}
+.animated-title span:nth-child(7){animation-delay:0.6s;}
+.animated-title span:nth-child(8){animation-delay:0.7s;}
+.animated-title span:nth-child(9){animation-delay:0.8s;}
+.animated-title span:nth-child(10){animation-delay:0.9s;}
+.animated-title span:nth-child(11){animation-delay:1s;}
+.animated-title span:nth-child(12){animation-delay:1.1s;}
+.animated-title span:nth-child(13){animation-delay:1.2s;}
+.animated-title span:nth-child(14){animation-delay:1.3s;}
+.animated-title span:nth-child(15){animation-delay:1.4s;}
+.animated-title span:nth-child(16){animation-delay:1.5s;}
+.animated-title span:nth-child(17){animation-delay:1.6s;}
+.animated-title span:nth-child(18){animation-delay:1.7s;}
+.animated-title span:nth-child(19){animation-delay:1.8s;}
+.animated-title span:nth-child(20){animation-delay:1.9s;}
+.animated-title span:nth-child(21){animation-delay:2s;}
+.animated-title span:nth-child(22){animation-delay:2.1s;}
+.animated-title span:nth-child(23){animation-delay:2.2s;}
+.animated-title span:nth-child(24){animation-delay:2.3s;}
+.animated-title span:nth-child(25){animation-delay:2.4s;}
+
+/* Paragraf dan tombol */
+.left-column p {
+  font-size:1rem;
+  margin-bottom:30px;
+  line-height:1.5;
+  color: rgba(243, 10, 41, 0.9);
+}
+
+.enter-button {
+  display:inline-block;
+  padding:15px 35px;
+  font-size:1rem;
+  font-weight:bold;
+  color:#fff;
+  background-color:#4facfe;
+  border:2px solid #4facfe;
+  border-radius:12px;
+  text-decoration:none;
+  transition: all 0.3s ease;
+}
+
+.enter-button:hover {
+  background-color:#f40a0a;
+  color:#4facfe;
+  box-shadow: 0 0 20px rgba(79,172,254,0.7);
+}
+
+/* Kolom kanan */
+.right-column {
+  flex:1;
+  background: url('https://i.postimg.cc/YqpLCYc8/Screenshot-30.png') center/cover no-repeat;
+  min-height:300px;
+}
+
+/* Responsif HP */
+@media(max-width:768px){
+  .landing-container {
+    flex-direction:column-reverse;
+    border-radius:15px;
+  }
+  .left-column {
+    padding:20px;
+    text-align:center;
+  }
+  .left-column h1 {
+    font-size:1.6rem;
+  }
+  .left-column p {
+    font-size:0.95rem;
+  }
+  .enter-button {
+    padding:12px 25px;
+    font-size:0.95rem;
+  }
+  .right-column {
+    min-height:250px;
+  }
+}
+</style>
 </head>
 <body>
-  <div class="card">
-    <h1>Akses Data Anggota</h1>
-    <div id="login-area"></div>
-    <div id="status"></div>
-    <div id="data"></div>
+
+<div class="landing-container">
+  <div class="left-column">
+    <h1 class="animated-title">
+  <span>𝐖</span><span>𝐄</span><span>𝐋</span><span>𝐋</span><span>𝐂</span><span>𝐎</span><span>𝐌</span><span>𝐄</span>
+  <span style="margin-right: 0.2em;"></span> <!-- spasi antar kata -->
+    </h1>
+    <p style="margin: 20px; line-height: 1.6;">𝐓𝐞𝐫𝐢𝐦𝐚 𝐤𝐚𝐬𝐢𝐡 𝐭𝐞𝐥𝐚𝐡 𝐦𝐞𝐧𝐠𝐮𝐧𝐣𝐮𝐧𝐠𝐢 𝐬𝐢𝐭𝐮𝐬 𝐎𝐌𝐊 𝐒𝐭 𝐏𝐞𝐭𝐫𝐮𝐬 𝐝𝐚𝐧 𝐏𝐚𝐮𝐥𝐮𝐬 𝐑𝐚𝐬𝐮𝐥 𝐒𝐞𝐤𝐨𝐧𝐚𝐮. 𝐊𝐥𝐢𝐤 𝐭𝐨𝐦𝐛𝐨𝐥 𝐝𝐢 𝐛𝐚𝐰𝐚𝐡 𝐮𝐧𝐭𝐮𝐤 𝐦𝐞𝐧𝐣𝐞𝐥𝐚𝐣𝐚𝐡𝐢 𝐰𝐞𝐛𝐬𝐢𝐭𝐞 𝐤𝐚𝐦𝐢 𝐥𝐞𝐛𝐢𝐡 𝐥𝐚𝐧𝐣𝐮𝐭.</p>
+    <a href="https://heriyandi9494-cloud.github.io/muda-mudi-sekonau/" class="enter-button" target="_blank" rel="noopener noreferrer">𝙇𝙖𝙣𝙟𝙪𝙩 𝙠𝙚 𝙒𝙚𝙗𝙨𝙞𝙩𝙚</a>
   </div>
+  <div class="right-column"></div>
+</div>
 
-  <script>
-    window.onload = function() {
-      // Inisialisasi tombol Google Sign-In
-      google.accounts.id.initialize({
-        client_id: '615652430263-10prqjssma6rat184elsplohmftcg8f5.apps.googleusercontent.com',
-        callback: handleCredentialResponse
-      });
-
-      google.accounts.id.renderButton(
-        document.getElementById("login-area"),
-        { theme: "outline", size: "large" }
-      );
-    };
-
-    // Callback setelah login Google berhasil
-    function handleCredentialResponse(response) {
-      document.getElementById('status').textContent = 'Memeriksa akun...';
-      google.script.run
-        .withSuccessHandler(showData)
-        .withFailureHandler(showError)
-        .getUserData();
-    }
-
-    // Tampilkan data anggota setelah login berhasil
-    function showData(result) {
-      document.getElementById('status').innerHTML =
-        'Login sebagai <b>' + result.email + '</b>';
-
-      const data = result.data;
-      let html = '<table id="data-table"><thead><tr>';
-
-      for (let h of data[0]) {
-        html += '<th>' + h + '</th>';
-      }
-
-      html += '</tr></thead><tbody>';
-
-      for (let r = 1; r < data.length; r++) {
-        html += '<tr>';
-        for (let c of data[r]) {
-          html += '<td>' + c + '</td>';
-        }
-        html += '</tr>';
-      }
-
-      html += '</tbody></table>';
-      document.getElementById('data').innerHTML = html;
-    }
-
-    // Tampilkan error jika gagal mengambil data
-    function showError(err) {
-      document.getElementById('status').textContent = 'Error: ' + err.message;
-    }
-  </script>
 </body>
 </html>
-
